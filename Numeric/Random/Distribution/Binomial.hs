@@ -25,9 +25,9 @@ module Numeric.Random.Distribution.Binomial (binomial) where
 -- of uniforms
 
 binomial :: Int       -- ^ n
-	 -> Double    -- ^ p
-	 -> [Double]  -- ^ U
-	 -> [Double]  -- ^ X
+         -> Double    -- ^ p
+         -> [Double]  -- ^ U
+         -> [Double]  -- ^ X
 
 binomial n p us = sum xi : binomial n p (drop n us)
     where xi = map (\u -> if u < p then 1 else 0) (take n us)

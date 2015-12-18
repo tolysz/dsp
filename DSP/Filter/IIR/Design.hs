@@ -96,16 +96,16 @@ chebyshev1Lowpass, mkChebyshev1 ::
    -> (Array Int Double, Array Int Double) -- ^ (b,a)
 
 chebyshev1Lowpass (wp,dp) (ws,ds) = poly2iir    $
-			       bilinear 1  $
-			       a_lp2lp wp' $
-			       Analog.chebyshev1 eps n
+                               bilinear 1  $
+                               a_lp2lp wp' $
+                               Analog.chebyshev1 eps n
     where wp' = prewarp wp 1
           ws' = prewarp ws 1
-	  eps = sqrt ((2 - dp)*dp) / (1 - dp)
-	  a   = 1 / ds
-	  k1  = eps / sqrt (a^!2 - 1)
-	  k   = wp' / ws'
-	  n   = ceiling $ acosh (1/k1) / log ((1 + sqrt (1 - k^!2)) / k)
+          eps = sqrt ((2 - dp)*dp) / (1 - dp)
+          a   = 1 / ds
+          k1  = eps / sqrt (a^!2 - 1)
+          k   = wp' / ws'
+          n   = ceiling $ acosh (1/k1) / log ((1 + sqrt (1 - k^!2)) / k)
 
 {-# DEPRECATED mkChebyshev1 "Use chebyshev1Lowpass instead" #-}
 mkChebyshev1 = chebyshev1Lowpass
@@ -119,14 +119,14 @@ chebyshev2Lowpass, mkChebyshev2 ::
    -> (Array Int Double, Array Int Double) -- ^ (b,a)
 
 chebyshev2Lowpass (wp,dp) (ws,ds) = poly2iir    $
-			       bilinear 1  $
-			       a_lp2lp ws' $
-			       Analog.chebyshev2 eps n
+                               bilinear 1  $
+                               a_lp2lp ws' $
+                               Analog.chebyshev2 eps n
     where wp' = prewarp wp 1
           ws' = prewarp ws 1
-	  eps = ds / sqrt (1 - ds^!2)
-	  g = 1 - dp
-	  n   = ceiling $ acosh (g / eps / sqrt (1 - g^!2)) / acosh (ws' / wp')
+          eps = ds / sqrt (1 - ds^!2)
+          g = 1 - dp
+          n   = ceiling $ acosh (g / eps / sqrt (1 - g^!2)) / acosh (ws' / wp')
 
 {-# DEPRECATED mkChebyshev2 "Use chebyshev2Lowpass instead" #-}
 mkChebyshev2 = chebyshev2Lowpass

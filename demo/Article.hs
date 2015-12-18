@@ -5,13 +5,13 @@
 
 module Main (main) where
 
-import DSP.Filter.FIR.Sharpen (sharpen)
-import DSP.Filter.FIR.FIR (fir)
-import DSP.Source.Basic (impulse)
+import           DSP.Filter.FIR.FIR                 (fir)
+import           DSP.Filter.FIR.Sharpen             (sharpen)
+import           DSP.Source.Basic                   (impulse)
 
-import Numeric.Transform.Fourier.FFTUtils (write_rfft_info)
+import           Numeric.Transform.Fourier.FFTUtils (write_rfft_info)
 
-import Data.Array (Array, listArray)
+import           Data.Array                         (Array, listArray)
 
 
 n :: Int
@@ -19,9 +19,9 @@ n = 1000
 
 h :: Array Int Double
 h = listArray (0,16) [ -0.016674, -0.022174,  0.015799, 0.047422, -0.013137,
-		       -0.090271,  0.021409,  0.31668,  0.48352,   0.31668,
-		        0.021409, -0.090271, -0.013137, 0.047422,  0.015799,
-		       -0.022174, -0.016674 ]
+                       -0.090271,  0.021409,  0.31668,  0.48352,   0.31668,
+                        0.021409, -0.090271, -0.013137, 0.047422,  0.015799,
+                       -0.022174, -0.016674 ]
 
 y1, y2, y3 :: [Double]
 y1 = fir h         $ impulse

@@ -30,8 +30,8 @@ qf' :: (Ix a, Integral a, RealFloat b) =>
     -> b
     -> b
 qf' y a | abs (a-b) < eps = acos(0.5 * b)
-	| otherwise       = qf' y b
+        | otherwise       = qf' y b
     where z = array (-2,n-1) ([ (-2, 0), (-1, 0) ] ++ [ (i, y!i + a * z!(i-1) - z!(i-2)) | i <- [0..(n-1)] ])
-	  b = sum [ (z!i + z!(i-2)) * z!(i-1) | i <- [0..(n-1)] ] / sum [ (z!(i-1))^(2::Int) | i <- [0..(n-1)] ]
-	  eps = 1.0e-6
-	  n = snd (bounds y) + 1
+          b = sum [ (z!i + z!(i-2)) * z!(i-1) | i <- [0..(n-1)] ] / sum [ (z!(i-1))^(2::Int) | i <- [0..(n-1)] ]
+          eps = 1.0e-6
+          n = snd (bounds y) + 1

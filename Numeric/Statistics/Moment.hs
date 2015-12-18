@@ -15,8 +15,8 @@
 -----------------------------------------------------------------------------
 
 module Numeric.Statistics.Moment (mean, var,
-				  stddev, avgdev,
-				  skew, kurtosis) where
+                                  stddev, avgdev,
+                                  skew, kurtosis) where
 
 -- TODO: does mean pass though the list twice?  once to compute the sum,
 -- and the second to compute the length?
@@ -49,7 +49,7 @@ mean x = Prelude.sum x / (fromIntegral.length) x
 var :: (Fractional a) => [a] -> a
 var xs = Prelude.sum (map (\x -> (x - mu)^(2::Int)) xs)  / (n - 1)
     where mu = mean xs
-	  n = fromIntegral $ length $ xs
+          n = fromIntegral $ length $ xs
 
 -- | Compute the standard deviation of a list
 --
@@ -65,7 +65,7 @@ stddev x = sqrt $ var x
 avgdev :: (RealFloat a) => [a] -> a
 avgdev xs = Prelude.sum (map (\x -> abs (x - mu)) xs)  / n
     where mu = mean xs
-	  n = fromIntegral $ length $ xs
+          n = fromIntegral $ length $ xs
 
 -- | Compute the skew of a list
 --
@@ -74,8 +74,8 @@ avgdev xs = Prelude.sum (map (\x -> abs (x - mu)) xs)  / n
 skew :: (RealFloat a) => [a] -> a
 skew xs = Prelude.sum (map (\x -> ((x - mu) / sigma)^(3::Int)) xs)  / n
     where mu = mean xs
-	  sigma = stddev xs
-	  n = fromIntegral $ length $ xs
+          sigma = stddev xs
+          n = fromIntegral $ length $ xs
 
 -- | Compute the kurtosis of a list
 --
@@ -84,5 +84,5 @@ skew xs = Prelude.sum (map (\x -> ((x - mu) / sigma)^(3::Int)) xs)  / n
 kurtosis :: (RealFloat a) => [a] -> a
 kurtosis xs = Prelude.sum (map (\x -> ((x - mu) / sigma)^(4::Int)) xs)  / n - 3
     where mu = mean xs
-	  sigma = stddev xs
-	  n = fromIntegral $ length $ xs
+          sigma = stddev xs
+          n = fromIntegral $ length $ xs

@@ -79,11 +79,11 @@ prony :: Int -- ^ p
 
 prony p q g = (b,a)
     where k   = snd $ bounds g
-	  gi i | i < 0     = 0
-	       | i > k     = 0
-	    | otherwise = g!i
-	  mg3 = array ((1,1),(k-q,p)) [ ((i,j), gi (q+i-j)) | j <- [1..p], i <- [1..k-q] ]
-	  g1  = array (1,k-q) [ (i, gi (q+i)) | i <- [1..k-q] ]
-	  a'  = solve (mm_mult (m_trans mg3) mg3) (fmap negate (mv_mult (m_trans mg3) g1))
+          gi i | i < 0     = 0
+               | i > k     = 0
+            | otherwise = g!i
+          mg3 = array ((1,1),(k-q,p)) [ ((i,j), gi (q+i-j)) | j <- [1..p], i <- [1..k-q] ]
+          g1  = array (1,k-q) [ (i, gi (q+i)) | i <- [1..k-q] ]
+          a'  = solve (mm_mult (m_trans mg3) mg3) (fmap negate (mv_mult (m_trans mg3) g1))
           a   = array (0,p) $ (0,1) : [ (i,a'!i) | i <- [1..p] ]
-	  b   = listArray (0,q) [ sum [ a!j * gi (i-j) | j <- [0..(min i p)] ] | i <- [0..q] ]
+          b   = listArray (0,q) [ sum [ a!j * gi (i-j) | j <- [0..(min i p)] ] | i <- [0..q] ]

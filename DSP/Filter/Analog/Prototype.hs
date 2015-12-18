@@ -40,46 +40,46 @@ import Polynomial.Basic (roots2poly)
 -- | Generates Butterworth filter prototype
 
 butterworth :: Int -- ^ N
-	    -> ([Double],[Double]) -- ^ (b,a)
+            -> ([Double],[Double]) -- ^ (b,a)
 
 butterworth n = (num, den)
     where poles = [ (-u k) :+ (w k) | k <- [0..(n-1)] ]
-	  u k = sin (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
-	  w k = cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
-	  num = [ 1 ]
-	  den = map realPart $ roots2poly $ poles
+          u k = sin (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
+          w k = cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
+          num = [ 1 ]
+          den = map realPart $ roots2poly $ poles
 
 -- | Generates Chebyshev filter prototype
 
 chebyshev1 :: Double -- ^ epsilon
-	   -> Int -- ^ N
-	   -> ([Double],[Double]) -- ^ (b,a)
+           -> Int -- ^ N
+           -> ([Double],[Double]) -- ^ (b,a)
 
 chebyshev1 eps n = (num, den)
     where poles = [ (-u k) :+ (w k) | k <- [0..(n-1)] ]
-	  u k = sinh v0 * sin (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
-	  w k = cosh v0 * cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
-	  num = [ gain ]
-	  den = map realPart $ roots2poly $ poles
-	  v0 = asinh (1/eps) / fromIntegral n
-	  gain =
+          u k = sinh v0 * sin (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
+          w k = cosh v0 * cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
+          num = [ gain ]
+          den = map realPart $ roots2poly $ poles
+          v0 = asinh (1/eps) / fromIntegral n
+          gain =
              if even n
                then abs $ head den / sqrt (1 + eps^(2::Int))
-	       else abs $ head den
+               else abs $ head den
 
 -- | Generates Inverse Chebyshev filter prototype
 
 chebyshev2 :: Double -- ^ epsilon
-	   -> Int -- ^ N
-	   -> ([Double],[Double]) -- ^ (b,a)
+           -> Int -- ^ N
+           -> ([Double],[Double]) -- ^ (b,a)
 
 chebyshev2 eps n = (num, den)
     where zeros = [ 0 :+ 1 / wz k | k <- [0..(n-1)], 2*k+1 /= n ]
-	  poles = [ 1 / ((-u k) :+ (w k)) | k <- [0..(n-1)] ]
-	  wz k = cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
-	  u k = sinh v0 * sin (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
-	  w k = cosh v0 * cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
-	  num = map (*gain) $ map realPart $ roots2poly $ zeros
-	  den =               map realPart $ roots2poly $ poles
-	  v0 = asinh (1/eps) / fromIntegral n
-	  gain = abs $ realPart $ product poles / product zeros
+          poles = [ 1 / ((-u k) :+ (w k)) | k <- [0..(n-1)] ]
+          wz k = cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
+          u k = sinh v0 * sin (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
+          w k = cosh v0 * cos (fromIntegral (2*k+1) * pi / fromIntegral (2*n))
+          num = map (*gain) $ map realPart $ roots2poly $ zeros
+          den =               map realPart $ roots2poly $ poles
+          v0 = asinh (1/eps) / fromIntegral n
+          gain = abs $ realPart $ product poles / product zeros

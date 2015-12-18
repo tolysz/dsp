@@ -24,8 +24,8 @@ import Data.Array
 
 rss :: (Ix a, Integral a, Num b) =>
              Array a b
-	  -> a
-	  -> b
+          -> a
+          -> b
 
 rss x k = sum [ x!(i+k) * x!i | i <- [0..(n-1-k)] ]
     where n = snd (bounds x) + 1
@@ -33,10 +33,10 @@ rss x k = sum [ x!(i+k) * x!i | i <- [0..(n-1-k)] ]
 -- | Pisarenko's method for a single sinusoid
 
 pisarenko :: (Ix a, Integral a, Floating b) => Array a b -- ^ x
-	  -> b -- ^ w
+          -> b -- ^ w
 
 pisarenko x = acos (alpha / 2)
     where alpha = (rss2 + sqrt (rss2^!2 + 8*rss1^!2)) / (2*(rss1 + eps))
-	  rss1 = rss x 1
-	  rss2 = rss x 2
-	  eps = 1.0e-15
+          rss1 = rss x 1
+          rss2 = rss x 2
+          eps = 1.0e-15

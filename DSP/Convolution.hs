@@ -24,8 +24,8 @@ conv :: (Ix a, Integral a, Num b) => Array a b -> Array a b -> Array a b
 conv x1 x2 = x3
     where m1 = snd $ bounds x1
           m2 = snd $ bounds x2
-	  m3 = m1 + m2
-	  x3 = listArray (0,m3) [
+          m3 = m1 + m2
+          x3 = listArray (0,m3) [
                     sum [ x1!k * x2!(n-k) | k <- [max 0 (n-m2)..min n m1] ]
                        | n <- [0..m3] ]
 

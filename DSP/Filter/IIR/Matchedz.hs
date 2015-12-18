@@ -25,13 +25,13 @@ import Data.Complex
 -- | Performs the matched-z transform
 
 matchedz :: Double -- ^ T_s
-	 -> ([Double],[Double]) -- ^ (b,a)
-	 -> ([Double],[Double]) -- ^ (b',a')
+         -> ([Double],[Double]) -- ^ (b,a)
+         -> ([Double],[Double]) -- ^ (b',a')
 
 matchedz ts (num,den) = (num',den')
     where zeros  = roots 1.0e-12 1000 $ map (:+ 0) $ num
-	  poles  = roots 1.0e-12 1000 $ map (:+ 0) $ den
-	  zeros' = map exp $ map (* (ts :+ 0)) $ zeros
-	  poles' = map exp $ map (* (ts :+ 0)) $ poles
-	  num'   = map realPart $ roots2poly zeros'
-	  den'   = map realPart $ roots2poly poles'
+          poles  = roots 1.0e-12 1000 $ map (:+ 0) $ den
+          zeros' = map exp $ map (* (ts :+ 0)) $ zeros
+          poles' = map exp $ map (* (ts :+ 0)) $ poles
+          num'   = map realPart $ roots2poly zeros'
+          den'   = map realPart $ roots2poly poles'

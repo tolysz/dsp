@@ -84,22 +84,22 @@ step4 a0 x = map (/a0) x
 -- | Performs the bilinear transform
 
 bilinear :: Double -- ^ T_s
-	 -> ([Double],[Double]) -- ^ (b,a)
-	 -> ([Double],[Double]) -- ^ (b',a')
+         -> ([Double],[Double]) -- ^ (b,a)
+         -> ([Double],[Double]) -- ^ (b',a')
 
 bilinear ts (num,den) = (num'', den'')
     where n = max (length num - 1) (length den - 1)
-	  num' = step3 $ step2 n $ step1 ts $ num
+          num' = step3 $ step2 n $ step1 ts $ num
           den' = step3 $ step2 n $ step1 ts $ den
           a0 = last den'
-	  num'' = step4 a0 num'
-	  den'' = step4 a0 den'
+          num'' = step4 a0 num'
+          den'' = step4 a0 den'
 
 -- | Function for frequency prewarping
 
 prewarp :: Double -- ^ w_c
-	-> Double -- ^ T_s
-	-> Double -- ^ W_c
+        -> Double -- ^ T_s
+        -> Double -- ^ W_c
 
 prewarp wc ts = 2/ts * tan (wc / 2)
 

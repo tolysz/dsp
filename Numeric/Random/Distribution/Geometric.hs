@@ -27,8 +27,8 @@ module Numeric.Random.Distribution.Geometric (geometric) where
 -- of uniforms
 
 geometric :: Double    -- ^ p
-	  -> [Double]  -- ^ U
-	  -> [Double]  -- ^ X
+          -> [Double]  -- ^ U
+          -> [Double]  -- ^ X
 
 geometric p us = map (\u -> 1 + log u / log (1 - p)) us
 

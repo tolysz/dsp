@@ -53,10 +53,10 @@ sfft' :: RealFloat a => Int
      -> Array Int (Complex a)
      -> [Array Int (Complex a)]
 sfft' n xn (x:xs)  x' | enough n (x:xs) = x'' : sfft' n x xs x''
-		      | otherwise       = []
+                      | otherwise       = []
     where x'' = listArray (0,n-1) [ x0 - xn + x'!i * w i | i <- [0..(n-1)] ]
           x0  = xs !! (n-2)
-	  w i = cis $ -2 * pi * fromIntegral i / fromIntegral n
+          w i = cis $ -2 * pi * fromIntegral i / fromIntegral n
 sfft' _ _ [] _ = error "sfft': input must have at least on value"
 
 -- We can't use Prelude.length because we may be operating on infinite,

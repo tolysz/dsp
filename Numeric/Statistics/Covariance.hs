@@ -25,7 +25,7 @@ import Numeric.Statistics.Moment
 cov :: (Fractional a) => [a] -> [a] -> a
 cov x1 x2 = Prelude.sum (zipWith (*) (map f1 x1) (map f2 x2)) / (n - 1)
     where mu1 = mean x1
-	  mu2 = mean x2
-	  n = fromIntegral $ length $ x1
-	  f1 = \x -> (x - mu1)^(2::Int)
-	  f2 = \x -> (x - mu2)^(2::Int)
+          mu2 = mean x2
+          n = fromIntegral $ length $ x1
+          f1 = \x -> (x - mu1)^(2::Int)
+          f2 = \x -> (x - mu2)^(2::Int)

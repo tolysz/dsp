@@ -79,7 +79,7 @@ upsampleRec :: (Num a) => Int -> [a] -> [a]
 upsampleRec _ []     = []
 upsampleRec n (x:xs) = x : zero n xs
     where zero 1 ys = upsample n ys
-	  zero i ys = 0 : zero (i-1) ys
+          zero i ys = 0 : zero (i-1) ys
 
 -- | @upsampleAndHold@ replicates each sample n times, eg,
 --

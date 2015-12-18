@@ -39,7 +39,7 @@ fir h (x:xs) | isFIRType1 h = fir'1 h w xs
              | isFIRType4 h = fir'4 h w xs
              | otherwise    = fir'0 h w xs
     where w = listArray (0,m) $ x : replicate m 0
-	  m = snd $ bounds h
+          m = snd $ bounds h
 
 -- This is for testing the symmetric helpers.
 
@@ -47,7 +47,7 @@ fir0 :: Num a => Array Int a -> [a] -> [a]
 fir0 _ []     = []
 fir0 h (x:xs) = fir'0 h w xs
     where w = listArray (0,m) $ x : replicate m 0
-	  m = snd $ bounds h
+          m = snd $ bounds h
 
 -- Asymmetric FIR
 
@@ -57,11 +57,11 @@ fir0 h (x:xs) = fir'0 h w xs
 fir'0 :: Num a => Array Int a -> Array Int a -> [a] -> [a]
 fir'0 h w []     = y : []
     where y  = sum [ h!i * w!i | i <- [0..m] ]
-	  m  = snd $ bounds h
+          m  = snd $ bounds h
 fir'0 h w (x:xs) = y : fir'0 h w' xs
     where y  = sum [ h!i * w!i | i <- [0..m] ]
           w' = listArray (0,m) $ x : elems w
-	  m  = snd $ bounds h
+          m  = snd $ bounds h
 
 -- Type 1: symmetric FIR, even order / odd length
 
@@ -71,13 +71,13 @@ fir'0 h w (x:xs) = y : fir'0 h w' xs
 fir'1 :: Num a => Array Int a -> Array Int a -> [a] -> [a]
 fir'1 h w []     = y : []
     where y  = h!m2 * w!m2 + sum [ h!i * (w!i + w!(m-i)) | i <- [0..m2-1] ]
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 fir'1 h w (x:xs) = y : fir'1 h w' xs
     where y  = h!m2 * w!m2 + sum [ h!i * (w!i + w!(m-i)) | i <- [0..m2-1] ]
           w' = listArray (0,m) $ x : elems w
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 
 -- Type 2: symmetric FIR, odd order / even length
 
@@ -87,13 +87,13 @@ fir'1 h w (x:xs) = y : fir'1 h w' xs
 fir'2 :: Num a => Array Int a -> Array Int a -> [a] -> [a]
 fir'2 h w []     = y : []
     where y  = sum [ h!i * (w!i + w!(m-i)) | i <- [0..m2] ]
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 fir'2 h w (x:xs) = y : fir'2 h w' xs
     where y  = sum [ h!i * (w!i + w!(m-i)) | i <- [0..m2] ]
           w' = listArray (0,m) $ x : elems w
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 
 -- Type 3: anti-symmetric FIR, even order / odd length
 
@@ -103,13 +103,13 @@ fir'2 h w (x:xs) = y : fir'2 h w' xs
 fir'3 :: Num a => Array Int a -> Array Int a -> [a] -> [a]
 fir'3 h w []     = y : []
     where y  = h!m2 * w!m2 + sum [ h!i * (w!i - w!(m-i)) | i <- [0..m2-1] ]
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 fir'3 h w (x:xs) = y : fir'3 h w' xs
     where y  = h!m2 * w!m2 + sum [ h!i * (w!i - w!(m-i)) | i <- [0..m2-1] ]
           w' = listArray (0,m) $ x : elems w
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 
 -- Type 4: anti-symmetric FIR, off order / even length
 
@@ -119,13 +119,13 @@ fir'3 h w (x:xs) = y : fir'3 h w' xs
 fir'4 :: Num a => Array Int a -> Array Int a -> [a] -> [a]
 fir'4 h w []     = y : []
     where y  = sum [ h!i * (w!i - w!(m-i)) | i <- [0..m2] ]
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 fir'4 h w (x:xs) = y : fir'4 h w' xs
     where y  = sum [ h!i * (w!i - w!(m-i)) | i <- [0..m2] ]
           w' = listArray (0,m) $ x : elems w
-	  m  = snd $ bounds h
-	  m2 = m `div` 2
+          m  = snd $ bounds h
+          m2 = m `div` 2
 
 -- Aux functions.  Note that the tap numbers go from [0..m], so if m is
 -- even, then the filter has odd length, and vice versa.
@@ -136,7 +136,7 @@ fir'4 h w (x:xs) = y : fir'4 h w' xs
 isFIRType1 :: (Num a, Eq a) => Array Int a -> Bool
 isFIRType1 h = even m && (h' == (reverse h'))
     where m = snd $ bounds h
-	  h' = elems h
+          h' = elems h
 
 {-# specialize isFIRType2 :: Array Int Float ->  Bool  #-}
 {-# specialize isFIRType2 :: Array Int Double -> Bool #-}
@@ -144,7 +144,7 @@ isFIRType1 h = even m && (h' == (reverse h'))
 isFIRType2 :: (Num a, Eq a) => Array Int a -> Bool
 isFIRType2 h = odd m && (h' == (reverse h'))
     where m = snd $ bounds h
-	  h' = elems h
+          h' = elems h
 
 {-# specialize isFIRType3 :: Array Int Float ->  Bool  #-}
 {-# specialize isFIRType3 :: Array Int Double -> Bool #-}
@@ -152,8 +152,8 @@ isFIRType2 h = odd m && (h' == (reverse h'))
 isFIRType3 :: (Num a, Eq a) => Array Int a -> Bool
 isFIRType3 h = even m && ha == reverse hb
     where m = snd $ bounds h
-	  h' = elems h
-	  ha = take n h'
+          h' = elems h
+          ha = take n h'
           hb = map negate (drop (n+1) h')
           n = m `div` 2
 
@@ -163,8 +163,8 @@ isFIRType3 h = even m && ha == reverse hb
 isFIRType4 :: (Num a, Eq a) => Array Int a -> Bool
 isFIRType4 h = odd m && ha == reverse hb
     where m = snd $ bounds h
-	  ha = elems h
-	  hb = fmap negate $ ha
+          ha = elems h
+          hb = fmap negate $ ha
 
 -- Test routines
 

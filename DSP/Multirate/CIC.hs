@@ -47,7 +47,7 @@ import DSP.Basic (delay1, delay, upsample, downsample)
 
 -- apply returns a function of n applications of a function, eg,
 
---	apply f 3 = f . f . f
+--         apply f 3 = f . f . f
 
 -- We will use this to create a cascade of integrators and combs
 
@@ -58,7 +58,7 @@ apply f n = f . apply f (n - 1)
 -- integrate implements a discrte integrator, ie, the output is the sum
 -- of all previous samples and the current one, eg
 
---	integrate [ 1, 1, 1, 1 ] = [ 1, 2, 3, 4 ]
+--         integrate [ 1, 1, 1, 1 ] = [ 1, 2, 3, 4 ]
 
 integrate :: (Num a) => [a] -> [a]
 integrate a = zipWith (+) a (delay1 (integrate a))
@@ -74,9 +74,9 @@ comb m a = zipWith (-) a (delay m a)
 It is now simple to create a CIC imterpolator or decimator.  In the
 functions below
 
-	r is the rate change
-	m is the length of the delay in the feed-forward element of the combs
-	n is the number of stages (the number of integrators and combs)
+        r is the rate change
+        m is the length of the delay in the feed-forward element of the combs
+        n is the number of stages (the number of integrators and combs)
 
 integrate_chain and comb_chain are the cascade of integrator and combs
 (hence the name CIC filter).  We then just slap the functions together
@@ -89,10 +89,10 @@ function.
 -- | CIC interpolator
 
 cic_interpolate :: (Num a) => Int -- ^ R
-		-> Int -- ^ M
-		-> Int -- ^ N
-		-> [a] -- ^ x[n]
-		-> [a] -- ^ y[n]
+                -> Int -- ^ M
+                -> Int -- ^ N
+                -> [a] -- ^ x[n]
+                -> [a] -- ^ y[n]
 
 cic_interpolate r m n = integrate_chain . (upsample r) . comb_chain
     where integrate_chain = apply integrate n
@@ -101,10 +101,10 @@ cic_interpolate r m n = integrate_chain . (upsample r) . comb_chain
 -- | CIC interpolator
 
 cic_decimate :: (Num a) => Int -- ^ R
-	     -> Int -- ^ M
-	     -> Int -- ^ N
-	     -> [a] -- ^ x[n]
-	     -> [a] -- ^ y[n]
+             -> Int -- ^ M
+             -> Int -- ^ N
+             -> [a] -- ^ x[n]
+             -> [a] -- ^ y[n]
 
 cic_decimate r m n = comb_chain . (downsample r) . integrate_chain
     where integrate_chain = apply integrate n

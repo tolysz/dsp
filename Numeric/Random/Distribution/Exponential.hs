@@ -37,7 +37,7 @@ module Numeric.Random.Distribution.Exponential (exponential_inv) where
 -- @ F^-1(x) = -log(1 - x) \/ lambda@
 
 exponential_inv ::  Double   -- ^ lambda
-		-> [Double]  -- ^ U
-		-> [Double]  -- ^ X
+                -> [Double]  -- ^ U
+                -> [Double]  -- ^ X
 
 exponential_inv lambda us = map (\u -> -log (1 - u) / lambda) us

@@ -72,15 +72,15 @@ purple_gn = purple $ white_gn
 dbrfft :: Array Int Double -> Array Int Double
 dbrfft xs = fmap db $ rfft $ xs
     where db (r:+i) = 10 * log10 (r*r+i*i) - 10 * log10 n
-	  log10 = logBase 10
-	  n = fromIntegral $ snd (bounds xs) + 1
+          log10 = logBase 10
+          n = fromIntegral $ snd (bounds xs) + 1
 
 -- avg averages a list of arrays pointwise
 
 avg :: [Array Int Double] -> Array Int Double
 avg xs = fmap (/ n) xs'
     where xs' = foldl1 add xs
-	  add as bs = listArray (bounds as) $ zipWith (+) (elems as) (elems bs)
+          add as bs = listArray (bounds as) $ zipWith (+) (elems as) (elems bs)
           n = fromIntegral $ length xs
 
 {- |
@@ -108,17 +108,17 @@ dump :: String -> Array Int Double -> IO ()
 dump filename xs =
   withFile filename WriteMode $ \h -> mapM_ (dump' h) $ assocs xs
     where dump' h (f,m) = do hPutStr h   $ show f
-			     hPutStr h   $ " "
-			     hPutStrLn h $ show m
+                             hPutStr h   $ " "
+                             hPutStrLn h $ show m
 
 -- usage function
 
 usage :: IO a
 usage = do self <- getProgName
-	   putStrLn $ "usage: " ++ self ++ " n1 n2 n3"
-	   putStrLn $ "       where n1 = FFT length"
-	   putStrLn $ "             n2 = overlap"
-	   putStrLn $ "             n3 = number of FFTs to average"
+           putStrLn $ "usage: " ++ self ++ " n1 n2 n3"
+           putStrLn $ "       where n1 = FFT length"
+           putStrLn $ "             n2 = overlap"
+           putStrLn $ "             n3 = number of FFTs to average"
            exitFailure
 
 -- simple function to parse the command line
@@ -134,7 +134,7 @@ parseArgs = do
 
 main :: IO ()
 main = do (n1,n2,n3) <- parseArgs
-	  dump "white.out"  $ avgrfft n1 n2 n3 $ white_gn
-	  dump "pink.out"   $ avgrfft n1 n2 n3 $ pink_gn
-	  dump "brown.out"  $ avgrfft n1 n2 n3 $ brown_gn
-	  dump "purple.out" $ avgrfft n1 n2 n3 $ purple_gn
+          dump "white.out"  $ avgrfft n1 n2 n3 $ white_gn
+          dump "pink.out"   $ avgrfft n1 n2 n3 $ pink_gn
+          dump "brown.out"  $ avgrfft n1 n2 n3 $ brown_gn
+          dump "purple.out" $ avgrfft n1 n2 n3 $ purple_gn

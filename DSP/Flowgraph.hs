@@ -23,8 +23,8 @@ module DSP.Flowgraph where
 -- @cascade [ f1, f2, f3 ] x == (f3 . f2 . f1) x@
 
 cascade :: Num a => [[a] -> [a]] -- ^ [f_n(x)]
-	-> [a] -- ^ x[n]
-	-> [a] -- ^ y[n]
+        -> [a] -- ^ x[n]
+        -> [a] -- ^ y[n]
 
 cascade []     = id
 cascade (f:fs) = cascade fs . f

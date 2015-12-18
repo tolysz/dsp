@@ -37,13 +37,13 @@ import DSP.Filter.FIR.FIR
 -- | Filter shaprening routine
 
 sharpen :: (Num a, Eq a) => Array Int a -- ^ h[n]
-	-> ([a] -> [a]) -- ^ function that implements the sharpened filter
+        -> ([a] -> [a]) -- ^ function that implements the sharpened filter
 
 sharpen h x = step4
     where step1 = fir h x
-	  step2 = map (2*) step1
-	  step3 = zipWith (-) (map (3*) (Basic.delay delay x)) step2
-	  step4 = fir h $ fir h $ step3
-	  -- step4 = fir $ conv h h $ step3
-	  m = snd $ bounds h
-	  delay = m `div` 2
+          step2 = map (2*) step1
+          step3 = zipWith (-) (map (3*) (Basic.delay delay x)) step2
+          step4 = fir h $ fir h $ step3
+          -- step4 = fir $ conv h h $ step3
+          m = snd $ bounds h
+          delay = m `div` 2

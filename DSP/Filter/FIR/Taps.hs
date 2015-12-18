@@ -16,12 +16,12 @@
 Reference:
 
 @Book{dsp,
-  author = 	 "Alan V. Oppenheim and Ronald W. Schafer",
-  title = 	 "Discrete-Time Signal Processing",
-  publisher = 	 "Prentice-Hall",
-  year = 	 1989,
-  address =	 "Englewood Cliffs",
-  series =       {Prentice-Hall Signal Processing Series}
+  author    = "Alan V. Oppenheim and Ronald W. Schafer",
+  title     = "Discrete-Time Signal Processing",
+  publisher = "Prentice-Hall",
+  year      = 1989,
+  address   = "Englewood Cliffs",
+  series    = {Prentice-Hall Signal Processing Series}
 }
 -}
 

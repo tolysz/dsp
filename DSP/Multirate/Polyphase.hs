@@ -30,19 +30,19 @@ mkpoly h l k = listArray (0,m) [ h!(k+n*l) | n <- [0..m] ]
 -- | Polyphase interpolator
 
 poly_interp :: (Num a, Eq a) => Int -- ^ L
-	    -> Array Int a -- ^ h[n]
-	    -> [a] -- ^ x[n]
-	    -> [a] -- ^ y[n]
+            -> Array Int a -- ^ h[n]
+            -> [a] -- ^ x[n]
+            -> [a] -- ^ y[n]
 
 poly_interp l h x = concat $ transpose y
     where g = map (fir . mkpoly h l) [0..(l-1)]
-	  y = map ($ x) g
+          y = map ($ x) g
 
 {-
 
 gZipWith :: Eq a => (a -> a -> a) -> [[a]] -> [a]
 gZipWith f xs | any (== []) xs = []
-	      | otherwise = foldl1 f (map head xs) : gZipWith f (map tail xs)
+              | otherwise = foldl1 f (map head xs) : gZipWith f (map tail xs)
 
 poly_decim :: Num a => Int -> Array Int a -> [a] -> [a]
 

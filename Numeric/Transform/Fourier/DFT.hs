@@ -41,7 +41,7 @@ dft :: (Ix a, Integral a, RealFloat b) => Array a (Complex b) -- ^ x[n]
     -> Array a (Complex b) -- ^ X[k]
 dft a = dft' a w n
     where w = listArray (0,n-1) [ cis (-2 * pi * fromIntegral i / fromIntegral n) | i <- [0..(n-0)] ]
-	  n = snd (bounds a) + 1
+          n = snd (bounds a) + 1
 
 {-# specialize dft' :: Array Int (Complex Float) -> Array Int (Complex Float) -> Int -> Array Int (Complex Float) #-}
 {-# specialize dft' :: Array Int (Complex Double) -> Array Int (Complex Double) -> Int -> Array Int (Complex Double) #-}

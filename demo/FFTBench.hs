@@ -65,32 +65,32 @@ f4 xs | n == 2    = fft'2 xs
 choose1 :: Int -> Int
 choose1 n = loop1 1 1
     where loop1 i f | i * i > n = f
-	            | (n `mod` i) == 0 && gcd i (n `div` i) == 1 = loop1 (i+1) i
-	            | otherwise = loop1 (i+1) f
+                    | (n `mod` i) == 0 && gcd i (n `div` i) == 1 = loop1 (i+1) i
+                    | otherwise = loop1 (i+1) f
 
 choose2 :: Int -> Int
 choose2 n = loop2 1 1
     where loop2 i f | i * i > n = f
                     | n `mod` i == 0 = loop2 (i+1) i
-	            | otherwise = loop2 (i+1) f
+                    | otherwise = loop2 (i+1) f
 
 choose_factor :: Int -> Int
 choose_factor n | i > 1 = i
-	        | otherwise = choose2 n
+                | otherwise = choose2 n
     where i = choose1 n
 
 f5 xs | n == 2    = fft'2 xs
       | n == 4    = fft'4 xs
       | otherwise = fft_ct1 xs l m f5
     where n = (snd $ bounds xs) + 1
-	  l = choose_factor n
+          l = choose_factor n
           m = n `div` l
 
 f6 xs | n == 2    = fft'2 xs
       | n == 4    = fft'4 xs
       | otherwise = fft_ct2 xs l m f6
     where n = (snd $ bounds xs) + 1
-	  l = choose_factor n
+          l = choose_factor n
           m = n `div` l
 
 f7 xs = fft_rader1 xs n

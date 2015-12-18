@@ -23,8 +23,8 @@
 -----------------------------------------------------------------------------
 
 module Polynomial.Maclaurin (polyexp, polyln1,
-			     polycos, polysin, polyatan,
-			     polycosh, polysinh, polyatanh) where
+                             polycos, polysin, polyatan,
+                             polycosh, polysinh, polyatanh) where
 
 -- A few utility lists
 

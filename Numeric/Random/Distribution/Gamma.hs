@@ -33,4 +33,4 @@ gamma :: Int       -- ^ n
 
 gamma n lambda u = x : gamma n lambda u'
     where x = -log (product (take n u)) / lambda
-	  u' = drop n u
+          u' = drop n u

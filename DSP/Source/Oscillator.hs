@@ -13,8 +13,8 @@
 -----------------------------------------------------------------------------
 
 module DSP.Source.Oscillator (nco, ncom,
-			      quadrature_nco, complex_ncom,
-			      quadrature_ncom,
+                              quadrature_nco, complex_ncom,
+                              quadrature_ncom,
                               agc) where
 
 import Data.Complex
@@ -32,7 +32,7 @@ nco :: RealFloat a => a -- ^ w
 
 nco wn phi = y
     where a0 = 2 * cos wn
-	  y1 = -(sin (wn + phi)) : y
+          y1 = -(sin (wn + phi)) : y
           y2 = -(sin (2 * wn + phi)) : y1
           y  = zipWith (-) (map (a0 *) y1) y2
 
@@ -67,8 +67,8 @@ agc (x:+y) = x * r :+ y * r
 -- subtract per point.
 
 quadrature_nco :: RealFloat a => a -- ^ w
-	       -> a -- ^ phi
-	       -> [ Complex a ] -- ^ y
+               -> a -- ^ phi
+               -> [ Complex a ] -- ^ y
 
 quadrature_nco wn phi = (cis phi) : map ((*) (cis wn)) (quadrature_nco wn phi)
 
@@ -77,9 +77,9 @@ quadrature_nco wn phi = (cis phi) : map ((*) (cis wn)) (quadrature_nco wn phi)
 -- (perform a complex spectral shift)
 
 complex_ncom      :: RealFloat a => a -- ^ w
-		  -> a -- ^ phi
-		  -> [ Complex a ] -- ^ x
-		  -> [ Complex a ] -- ^ y
+                  -> a -- ^ phi
+                  -> [ Complex a ] -- ^ x
+                  -> [ Complex a ] -- ^ y
 
 complex_ncom _  _   [] = []
 complex_ncom wn phi x  = zipWith (*) (quadrature_nco wn phi) x
@@ -94,8 +94,8 @@ quadrature_mult (x1:+y1) (x2:+y2) = x1 * x2 + y1 * y2
 -- normalized frequency wn radians\/sample in quadrature (I\/Q modulation)
 
 quadrature_ncom :: RealFloat a => a -- ^ w
-		-> a -- ^ phi
-		-> [Complex a] -- ^ x
-		-> [a] -- ^ y
+                -> a -- ^ phi
+                -> [Complex a] -- ^ x
+                -> [a] -- ^ y
 
 quadrature_ncom wn phi x = zipWith quadrature_mult x (quadrature_nco wn phi)

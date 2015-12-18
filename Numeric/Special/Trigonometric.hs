@@ -1,8 +1,8 @@
 module Numeric.Special.Trigonometric (csc,   sec,   cot,
-				      acsc,  asec,  acot,
-				      csch,  sech,  coth,
-				      acsch, asech, acoth
-				     ) where
+                                      acsc,  asec,  acot,
+                                      csch,  sech,  coth,
+                                      acsch, asech, acoth
+                                     ) where
 
 import Data.Complex
 

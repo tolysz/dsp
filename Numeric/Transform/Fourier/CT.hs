@@ -24,20 +24,20 @@ import Data.Complex
 {-# specialize fft_ct1 :: Array Int (Complex Double) -> Int -> Int -> (Array Int (Complex Double) -> Array Int (Complex Double)) -> Array Int (Complex Double) #-}
 
 fft_ct1 :: (Ix a, Integral a, RealFloat b) => Array a (Complex b) -- ^ x[n]
-	-> a -- ^ nrows
-	-> a -- ^ ncols
-	-> (Array a (Complex b) -> Array a (Complex b)) -- ^ FFT function
-	-> Array a (Complex b) -- ^ X[k]
+        -> a -- ^ nrows
+        -> a -- ^ ncols
+        -> (Array a (Complex b) -> Array a (Complex b)) -- ^ FFT function
+        -> Array a (Complex b) -- ^ X[k]
 
 fft_ct1 a l m fft = array (0,n-1) $ zip ks (elems x')
     where x = listArray ((0,0),(l-1,m-1)) [ a!i | i <- xs ]
-	  f = listArray ((0,0),(l-1,m-1)) (flatten_rows $ map fft $ rows x)
-	  g = listArray ((0,0),(l-1,m-1)) [ f!(i,j) * w!(i*j) | i <- [0..(l-1)], j <- [0..(m-1)] ]
-	  x' = listArray ((0,0),(l-1,m-1)) (flatten_cols $ map fft $ cols g)
-	  wn = cis (-2 * pi / fromIntegral n)
-	  w = listArray (0,n-1) $ iterate (* wn) 1
-	  (xs,ks) = ct_index_map1 l m
-	  n = l * m
+          f = listArray ((0,0),(l-1,m-1)) (flatten_rows $ map fft $ rows x)
+          g = listArray ((0,0),(l-1,m-1)) [ f!(i,j) * w!(i*j) | i <- [0..(l-1)], j <- [0..(m-1)] ]
+          x' = listArray ((0,0),(l-1,m-1)) (flatten_cols $ map fft $ cols g)
+          wn = cis (-2 * pi / fromIntegral n)
+          w = listArray (0,n-1) $ iterate (* wn) 1
+          (xs,ks) = ct_index_map1 l m
+          n = l * m
 
 -- | Cooley-Tukey algorithm doing column FFT's then row FFT's
 
@@ -45,20 +45,20 @@ fft_ct1 a l m fft = array (0,n-1) $ zip ks (elems x')
 {-# specialize fft_ct2 :: Array Int (Complex Double) -> Int -> Int -> (Array Int (Complex Double) -> Array Int (Complex Double)) -> Array Int (Complex Double) #-}
 
 fft_ct2 :: (Ix a, Integral a, RealFloat b) => Array a (Complex b) -- ^ x[n]
-	-> a -- ^ nrows
-	-> a -- ^ ncols
-	-> (Array a (Complex b) -> Array a (Complex b)) -- ^ fft function
-	-> Array a (Complex b) -- ^ X[k]
+        -> a -- ^ nrows
+        -> a -- ^ ncols
+        -> (Array a (Complex b) -> Array a (Complex b)) -- ^ fft function
+        -> Array a (Complex b) -- ^ X[k]
 
 fft_ct2 a l m fft = array (0,n-1) $ zip ks (elems x')
     where x = listArray ((0,0),(l-1,m-1)) [ a!i | i <- xs ]
-	  f = listArray ((0,0),(l-1,m-1)) (flatten_cols $ map fft $ cols x)
-	  g = listArray ((0,0),(l-1,m-1)) [ f!(i,j) * w!(i*j) | i <- [0..(l-1)], j <- [0..(m-1)] ]
-	  x' = listArray ((0,0),(l-1,m-1)) (flatten_rows $ map fft $ rows g)
-	  wn = cis (-2 * pi / fromIntegral n)
-	  w = listArray (0,n-1) $ iterate (* wn) 1
-	  (xs,ks) = ct_index_map2 l m
-	  n = l * m
+          f = listArray ((0,0),(l-1,m-1)) (flatten_cols $ map fft $ cols x)
+          g = listArray ((0,0),(l-1,m-1)) [ f!(i,j) * w!(i*j) | i <- [0..(l-1)], j <- [0..(m-1)] ]
+          x' = listArray ((0,0),(l-1,m-1)) (flatten_rows $ map fft $ rows g)
+          wn = cis (-2 * pi / fromIntegral n)
+          w = listArray (0,n-1) $ iterate (* wn) 1
+          (xs,ks) = ct_index_map2 l m
+          n = l * m
 
 -- Index maps
 

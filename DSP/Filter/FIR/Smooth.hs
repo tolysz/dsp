@@ -40,7 +40,7 @@ expand (x:xs) = expand' x $ expand xs
 expand' :: Fractional a => a -> [a] -> [a]
 expand' x ys0 = zipWith (+) (x : m1 ys0) (p1 ys0)
     where m1 (y:ys) = y : map (0.5*) ys
-	  p1 (_:ys) = map (0.5*) ys ++ [ 0, 0 ]
+          p1 (_:ys) = map (0.5*) ys ++ [ 0, 0 ]
 
 -- Reflect makes the filter symmetric (not sure where this is stated)
 
@@ -53,15 +53,15 @@ reflect (x:xs) = (map (0.5*) $ reverse xs) ++ x : (map (0.5*) xs)
 -- | designs smooth FIR filters
 
 smoothfir :: (Ix a, Integral a, Fractional b) => a -- ^ p
-	  -> a -- ^ q
-	  -> Array a b -- ^ h[n]
+          -> a -- ^ q
+          -> Array a b -- ^ h[n]
 
 smoothfir p q = listArray (0,n-1) $ reflect $ expand $ b
     where b' = polymult (polypow [ 1, 1 ] p) (polypow [ 1, -1 ] q)
           b1 = polyinteg b' 0
-	  c = -polyeval b1 (-1)
-	  b = normalize $ c : tail b1
-	  n = 2 * (p+1 + q+1) - 1
+          c = -polyeval b1 (-1)
+          b = normalize $ c : tail b1
+          n = 2 * (p+1 + q+1) - 1
 
 -- Test
 

@@ -33,8 +33,8 @@ Generates a list of poisson random variables from a list of uniforms.
 -}
 
 poisson :: Double    -- ^ lambda - expectation value, should be non-negative.
-	-> [Double]  -- ^ uniformly distributed values from the interval [0,1]
-	-> [Int]     -- ^ Poisson distributed outputs
+        -> [Double]  -- ^ uniformly distributed values from the interval [0,1]
+        -> [Int]     -- ^ Poisson distributed outputs
 
 poisson lambda (u:us) =
    let e = exp (-lambda)

@@ -16,12 +16,12 @@
 -- Reference:
 --
 -- @Book{dsp,
---   author = 	 "Alan V. Oppenheim and Ronald W. Schafer",
---   title = 	 "Discrete-Time Signal Processing",
---   publisher = 	 "Prentice-Hall",
---   year = 	 1989,
---   address =	 "Englewood Cliffs",
---   series =       {Prentice-Hall Signal Processing Series}
+--   author    = "Alan V. Oppenheim and Ronald W. Schafer",
+--   title     = "Discrete-Time Signal Processing",
+--   publisher = "Prentice-Hall",
+--   year      = 1989,
+--   address   = "Englewood Cliffs",
+--   series    = {Prentice-Hall Signal Processing Series}
 -- }
 
 module DSP.Filter.FIR.Kaiser (kaiser_lpf, kaiser_hpf) where
@@ -65,10 +65,10 @@ calc_M a dw = ceiling ((a - 8) / (2.285 * dw))
 -- | Designs a lowpass Kaiser filter
 
 kaiser_lpf :: Double -- ^ wp
-	   -> Double -- ^ ws
-	   -> Double -- ^ dp
-	   -> Double -- ^ ds
-	   -> Array Int Double -- ^ h[n]
+           -> Double -- ^ ws
+           -> Double -- ^ dp
+           -> Double -- ^ ds
+           -> Array Int Double -- ^ h[n]
 
 kaiser_lpf wp ws d1 d2 = window (kaiser beta m) (lpf wc m)
     where wc = calc_wc wp ws
@@ -86,10 +86,10 @@ kaiser_lpf wp ws d1 d2 = window (kaiser beta m) (lpf wc m)
 -- | Designs a highpass Kaiser filter
 
 kaiser_hpf :: Double -- ^ wp
-	   -> Double -- ^ ws
-	   -> Double -- ^ dp
-	   -> Double -- ^ ds
-	   -> Array Int Double -- ^ h[n]
+           -> Double -- ^ ws
+           -> Double -- ^ dp
+           -> Double -- ^ ds
+           -> Array Int Double -- ^ h[n]
 
 kaiser_hpf wp ws d1 d2 = window (kaiser beta m) (hpf wc m)
     where wc = calc_wc wp ws

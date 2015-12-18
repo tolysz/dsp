@@ -61,7 +61,7 @@ n = 256
 ya :: Array Int Double
 ya = listArray (0,n-1) $ zipWith (+) noise $ map (rho *) $ nco w phi
     where noise = normal_ar (0, sig2) $ uniform53oc $ genrand 42
-	  sig2 = (rho^!2 / 2) / (10 ** (snr / 10))
+          sig2 = (rho^!2 / 2) / (10 ** (snr / 10))
 
 za :: Array Int (Complex Double)
 za = listArray (0,n-1) $ zipWith (+) noise $ map ((rho :+ 0) *) $ quadrature_nco w phi
@@ -91,12 +91,12 @@ scm y = [ ("Pisarenko's Method\t\t\t", pisarenko y) ]
 offline :: Array Int Double -> [(String, Double)]
 offline y = [ ("Quinn-Fernandes\t\t\t\t", qf y w') ]
     where k = round $ w / 2 / pi * fromIntegral n
-	  w' = 2 * pi * fromInteger k / fromIntegral n
+          w' = 2 * pi * fromInteger k / fromIntegral n
 
 fastblock :: Array Int (Complex Double) -> [(String, Double)]
 fastblock z = [ ("Lank, Reed, and Pollon\t\t\t", lrp z),
-		("Kay\t\t\t\t\t", kay z),
-		("Lovell and Williamson\t\t\t", lw z) ]
+                ("Kay\t\t\t\t\t", kay z),
+                ("Lovell and Williamson\t\t\t", lw z) ]
 --              ("Clarkson, Kootsookos, and Quinn\t\t", ckq z rho sig) ]
 --    where sig = sqrt $ (rho^2 / 2) / (10 ** (snr / 10))
 

@@ -42,5 +42,5 @@ ma_durbin :: (Ix a, Integral a, RealFloat b) => Array a (Complex b)  -- ^ x
 
 ma_durbin x q l = (b, sig2)
     where (b,_)       = ar_yw a' q
- 	  a'          = array (0,l) ((0,1) : [ (i, a''!i) | i <- [1..l] ])
+          a'          = array (0,l) ((0,1) : [ (i, a''!i) | i <- [1..l] ])
           (a'', sig2) = ar_yw x l
