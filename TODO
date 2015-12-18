@@ -1,0 +1,103 @@
+(in no particular order...)
+
+Put all of this into CVS on SourceForge
+
+Types, types, and more types.
+
+Code audit: check types and add specialization pragmas
+
+Work on the TODOs listed in the source files
+
+Partial pivoting for LU
+
+Test Numeric.Statistics.Moment
+
+Implement Numeric.Statistics.Chisq
+
+The rest of NRiC chapter 13
+
+NRiC chapter 14
+
+Speedup for Numeric.Statistics.Median.median frp, Knuth/NRiC
+
+More random distributions. We can possibly borrow the definitions from
+GSL, but we need to be careful about the conventions.
+
+Add pdf and cdf functions to the files in Numeric.Random.Distribution
+
+FFI to GSL
+
+Polynomial: inflation and deflation ala NRiC, division ala Knuth
+
+Approximation: rational functions, continued fractions
+
+Use pole/zero representation for intermediate results for IIR
+functions.
+
+Double and triple check that the documentation and conventions are
+consistent for the sign of the poles in all of the IIR routines.
+
+Double check that all of the functions in DSP.Filter.IIR.IIR produce correct
+results.
+
+Rework random framwork to seperate and unify generators,
+distributions, and spectral shaping.
+
+Sliding Goertzel algorithm.
+
+Rework polynomial interpolator interface
+
+Make the windowed FIR routines (Taps,Window) a bit more generic, and
+work from continuous time formulas and have a function that samples
+them.
+
+DF2T version of iir in DSP.Filter.IIR.IIR
+
+DSP I/O library
+
+Fast FIR (both overlap-and-add and overlap-and-save)
+
+FFI to FFTW
+
+Parks-McClellan FIR design
+
+Marsaglia and Tsang's ziggurat method
+
+Continuous-time responses (both freq domain and time domain)
+
+Homomorphic framework
+
+Minimum phase FIR design / transformation
+
+Elliptic IIR design functions (requires FFI to ellf/GSL library, or
+translation of ellf/GSL code)
+
+METEOR FIR design
+
+Frequency sampling FIR design
+
+Rest of methods from Kay:
+  AR RMLE method
+  ARMA Akaike method
+  ARMA MYWE method
+  ARMA LS-MYWE method
+  ARMA Mayne-Firoozan method
+  MVSE method
+
+Frequency estimation routines needing eigenvector package
+
+Tribolet's phase unwrapping algorithm
+
+Gnuplot interface
+
+Fixed-point class and/or functions
+
+Finish and test polyphase functions
+
+Framework for approximation functions from Hart
+
+Additional pinking methods
+
+Additional colors of noise
+
+List optimization in functions

@@ -1,0 +1,113 @@
+================================
+= Matt's Haskell DSP Libraries =
+================================
+
+-------------------
+-- The Hierarchy --
+-------------------
+
+Stat          - Statistics functions
+Poly          - Polynmial functions
+Matrix        - Matrix routines
+DSP           - Basic DSP routines
+DSP.FFT       - Fast Fourier Transform library
+DSP.Signal    - Signal generators
+DSP.FreqEst   - Frequency estimation library
+DSP.FIR       - FIR filter library
+DSP.IIR       - IIR filter library
+DSP.SpecEst   - Spectral estimation library
+DSP.Multirate - Multirate library
+
+-----------------
+- Documentation -
+-----------------
+
+Haddock generated documentation can be built from the Makefile and can
+be found in the doc/ subdirectory.
+
+-------------
+- Compiling -
+-------------
+
+A Makefile is included to compile everything.  It works with GHC under
+FreeBSD.
+
+If you are on a slow machine and enable optimization and profiling, I
+suggest going to a movie. :)
+
+----------------
+- Applications -
+----------------
+
+FFTTest - An application for testing a range of FFT's.  Executing
+'FFTTest n1 n2' will test all transforms [n1..n2] using Ergun's
+method.
+
+FFTBench - An application for benchmarking the FFT code.  Check out
+the source for details.
+
+IIRDemo - Simple demo the generates some IIR filters used in the
+examples from Oppenheim and Schafer.
+
+FreqDemo - Simple demonstration of frequency esimation routines.
+
+Article - Simple program demonstrating FIR filter sharpening.  This
+program was used to generate the data for Matt Donadio, "Lost
+Knowledge Refound: Sharpened FIR Filters," IEEE Signal Processing
+Magazine, to appear.
+
+---------
+- Notes -
+---------
+
+As I write this, I don't remember if the DSP.Multirate library works.
+
+The DSP.FFT library works, but is hardly fast.
+
+------------------
+- Likely Changes -
+------------------
+
+(in no particular order...)
+
+Types, types, and more types.
+
+The IIR design functions will probably be changed to use pole/zero
+form rather than polynomials for intermediate results.
+
+The Uniform RNG functions will probably be changed to accept a list of
+randoms instead of generating them directly.
+
+The polynomial interpolator interface should be improved
+
+More specialization pragmas
+
+I may make the windowed FIR routines (Taps,Window) a bit more generic,
+and work from continuous time formulas and have a function that
+samples them.
+
+Check out the TODO file for more information.
+
+-----------
+- Testbed -
+-----------
+
+The code is being developed under FreeBSD-STABLE on an Intel Celeron
+box.
+
+GHC-5.04.3 is the compiler of choice, further work and testing will be
+done to ensure portability.
+
+I think everything works with Hugs, but I could have overlooked
+something.
+
+MT19937.hs doesn't compile with NHC because of an instance problem.
+
+--------
+- Misc -
+--------
+
+All questions, comments, bugs reports, flames, and suggestions should
+be directed to Matt Donadio (m.p.donadio@ieee.org).  Send him an email
+if you find any of this useful, or if you want updates on changes
+and/or additions.
